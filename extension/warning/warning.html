@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishGuard AI — Dangerous Website Detected</title>
+  <link rel="stylesheet" href="warning.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="warning-container">
+    <!-- Top status bar -->
+    <div class="top-status-badge">
+      <span class="warning-icon-sm">⚠️</span>
+      <span>Blocked by PhishGuard AI Real-Time Protection</span>
+    </div>
+
+    <!-- Main Shield Icon with Glow -->
+    <div class="shield-container">
+      <div class="shield-glow"></div>
+      <svg class="shield-svg" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 5L10 22V60C10 90 50 115 50 115C50 115 90 90 90 60V22L50 5Z" stroke="#EF4444" stroke-width="4" fill="rgba(239, 68, 68, 0.15)"/>
+        <!-- Exclamation Mark -->
+        <rect x="47" y="35" width="6" height="35" rx="3" fill="#EF4444" />
+        <circle cx="50" cy="85" r="4.5" fill="#EF4444" />
+      </svg>
+    </div>
+
+    <!-- Warning Title & Notice -->
+    <h1 class="warning-title">DANGEROUS WEBSITE DETECTED</h1>
+    <p class="warning-description">
+      This website has been identified as potentially dangerous. It may attempt to steal your passwords,
+      banking information, personal data, or authentication codes. Do not enter sensitive information.
+    </p>
+
+    <!-- Evidence Details Box -->
+    <div class="threat-card">
+      <div class="threat-row">
+        <div class="threat-label">
+          <span class="label-icon">⚠️</span>
+          <span>Detected Risk</span>
+        </div>
+        <div class="threat-colon">:</div>
+        <div class="threat-value">
+          <span class="risk-badge" id="riskBadge">Phishing (High Risk)</span>
+        </div>
+      </div>
+
+      <div class="threat-row">
+        <div class="threat-label">
+          <span class="label-icon">🌐</span>
+          <span>Website</span>
+        </div>
+        <div class="threat-colon">:</div>
+        <div class="threat-value font-mono" id="websiteUrl">
+          https://...
+        </div>
+      </div>
+
+      <div class="threat-row">
+        <div class="threat-label">
+          <span class="label-icon">ℹ️</span>
+          <span>Reason</span>
+        </div>
+        <div class="threat-colon">:</div>
+        <div class="threat-value text-gray-300" id="detectionReason">
+          Lookalike domain, suspicious login page, and known phishing indicators.
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button class="btn btn-primary" id="btnReturnSafety">
+        <span class="btn-icon">←</span> Return to Safety
+      </button>
+      <button class="btn btn-secondary" id="btnViewDetails">
+        <span class="btn-icon">📋</span> View Detection Details
+      </button>
+      <button class="btn btn-secondary" id="btnReportMistake">
+        <span class="btn-icon">🏳️</span> Report a Mistake
+      </button>
+    </div>
+
+    <!-- Expandable Forensic Panel (Hidden by default) -->
+    <div class="details-panel hidden" id="detailsPanel">
+      <h3>Detection Telemetry & Analysis Findings</h3>
+      <div class="details-grid">
+        <div class="detail-item">
+          <span class="detail-key">Risk Score:</span>
+          <span class="detail-val" id="detailScore">95 / 100</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-key">Verdict Category:</span>
+          <span class="detail-val" id="detailVerdict">Known Malicious</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-key">Target Hostname:</span>
+          <span class="detail-val font-mono" id="detailHost">-</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-key">Inspection Engine:</span>
+          <span class="detail-val">PhishGuard Multi-Vector AI Engine v1.0</span>
+        </div>
+      </div>
+
+      <div class="danger-bypass-box">
+        <p class="bypass-warning">
+          <strong>Proceed at your own risk:</strong> If you are certain this website is safe and legitimate,
+          you may temporarily bypass this block or add the domain to your personal allowlist.
+        </p>
+        <div class="bypass-actions">
+          <button class="btn btn-danger-sm" id="btnBypass">Proceed Anyway (Unsafe)</button>
+          <button class="btn btn-outline-sm" id="btnAllowlistDomain">Always Allow this Domain</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Mistake Modal -->
+    <div class="modal-overlay hidden" id="mistakeModal">
+      <div class="modal-card">
+        <h3>Report False Positive</h3>
+        <p>If you believe this domain was incorrectly flagged as malicious, let our threat intelligence team know:</p>
+        <div class="modal-form">
+          <label>URL: <span class="font-mono text-cyan" id="reportUrl">-</span></label>
+          <textarea id="feedbackComment" placeholder="Explain why this website is legitimate (e.g. official company portal)..."></textarea>
+          <div class="modal-buttons">
+            <button class="btn btn-primary" id="btnSubmitReport">Submit Feedback</button>
+            <button class="btn btn-secondary" id="btnCloseModal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Security Footer -->
+    <div class="warning-footer">
+      <span>Protected by PhishGuard AI • Next-Generation Cybersecurity Platform</span>
+    </div>
+  </div>
+
+  <script src="warning.js"></script>
+</body>
+</html>

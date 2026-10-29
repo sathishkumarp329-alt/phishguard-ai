@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhishGuard AI Popup</title>
+  <link rel="stylesheet" href="popup.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="22" height="26" viewBox="0 0 100 120" fill="none">
+            <path d="M50 5L10 22V60C10 90 50 115 50 115C50 115 90 90 90 60V22L50 5Z" stroke="#00D4FF" stroke-width="6" fill="rgba(0, 212, 255, 0.15)"/>
+            <path d="M35 60L45 70L65 45" stroke="#00D4FF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">PhishGuard <span class="text-cyan">AI</span></h1>
+          <span class="brand-tagline">Real-Time Protection</span>
+        </div>
+      </div>
+      <button class="settings-btn" id="btnOpenOptions" title="Settings">⚙️</button>
+    </header>
+
+    <!-- Protection Toggle Card -->
+    <div class="toggle-card">
+      <div class="toggle-info">
+        <span class="status-indicator active" id="statusDot"></span>
+        <div>
+          <div class="toggle-title" id="statusTitle">Real-Time Shield: ACTIVE</div>
+          <div class="toggle-desc" id="statusSubtitle">Intercepting threats before navigation</div>
+        </div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="shieldToggle" checked>
+        <span class="slider round"></span>
+      </label>
+    </div>
+
+    <!-- Quick Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-val text-cyan" id="statChecked">0</div>
+        <div class="stat-lbl">URLs Inspected</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val text-red" id="statBlocked">0</div>
+        <div class="stat-lbl">Threats Neutralized</div>
+      </div>
+    </div>
+
+    <!-- Quick Scan Bar -->
+    <div class="quick-scan-section">
+      <div class="scan-label">Instant URL Forensic Check</div>
+      <div class="scan-input-group">
+        <input type="text" id="quickScanInput" placeholder="Enter link to inspect...">
+        <button id="btnQuickScan" class="btn-scan">Scan</button>
+      </div>
+      <div class="quick-scan-result hidden" id="quickScanResult">
+        <div class="result-header">
+          <span class="result-badge" id="quickVerdict">-</span>
+          <span class="result-score" id="quickScore">-</span>
+        </div>
+        <div class="result-reason" id="quickReason">-</div>
+      </div>
+    </div>
+
+    <!-- Recent Alerts -->
+    <div class="recent-section">
+      <div class="section-title">Recent Detections</div>
+      <div class="recent-list" id="recentList">
+        <div class="empty-state">No malicious destinations intercepted recently. Safe browsing!</div>
+      </div>
+    </div>
+
+    <!-- Footer Actions -->
+    <footer class="popup-footer">
+      <button class="btn-footer" id="btnOpenDashboard">Open Full Dashboard ↗</button>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

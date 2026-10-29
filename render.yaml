@@ -1,0 +1,75 @@
+# PhishGuard AI — Render Cloud Blueprint Specification
+# Deploys FastAPI Backend, React Frontend (Static Site with SPA routing), and PostgreSQL Database
+version: "1"
+
+databases:
+  - name: phishguard-db
+    databaseName: phishguard
+    user: phishguard_user
+    plan: free
+    region: oregon
+
+services:
+  # -------------------------------------------------------------
+  # 1. FastAPI Detection Engine & Core API Backend
+  # -------------------------------------------------------------
+  - type: web
+    name: phishguard-api
+    runtime: python
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: "/api/v1/health"
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.3
+      - key: ENVIRONMENT
+        value: production
+      - key: PROJECT_NAME
+        value: "PhishGuard AI"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 60
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: COOKIE_SAMESITE
+        value: "none"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: phishguard-db
+          property: connectionString
+      - key: CORS_ORIGINS
+        value: '["https://phishguard-frontend.onrender.com", "http://localhost:5173", "http://localhost:3000"]'
+      - key: MAX_UPLOAD_SIZE_MB
+        value: 10
+      - key: MAX_BATCH_URLS
+        value: 100
+      - key: RATE_LIMIT_LOGIN
+        value: "10/minute"
+      - key: RATE_LIMIT_SCAN
+        value: "60/minute"
+
+  # -------------------------------------------------------------
+  # 2. React + TypeScript + Vite + Tailwind Frontend
+  # -------------------------------------------------------------
+  - type: web
+    name: phishguard-frontend
+    runtime: static
+    region: oregon
+    plan: free
+    rootDir: frontend
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: dist
+    autoDeploy: true
+    routes:
+      # SPA rewrite rule to ensure client-side React routing works on all paths
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: "https://phishguard-api.onrender.com/api/v1"

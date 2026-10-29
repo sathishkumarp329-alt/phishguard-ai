@@ -1,0 +1,397 @@
+/* PhishGuard AI - Warning Page Styles */
+:root {
+  --bg-dark: #0a0e27;
+  --bg-card: #0d1238;
+  --bg-row: #11184a;
+  --accent-red: #ef4444;
+  --accent-red-glow: rgba(239, 68, 68, 0.35);
+  --accent-red-subtle: rgba(239, 68, 68, 0.12);
+  --border-red: rgba(239, 68, 68, 0.35);
+  --accent-cyan: #00d4ff;
+  --text-main: #ffffff;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-dark);
+  background-image: 
+    radial-gradient(circle at 50% 15%, rgba(239, 68, 68, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(13, 18, 56, 0.8) 0%, transparent 60%);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.warning-container {
+  max-width: 840px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Top status pill */
+.top-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid var(--border-red);
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fca5a5;
+  margin-bottom: 32px;
+}
+
+/* Shield with glow */
+.shield-container {
+  position: relative;
+  width: 90px;
+  height: 100px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shield-glow {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-red-glow) 0%, transparent 70%);
+  filter: blur(12px);
+  z-index: 1;
+}
+
+.shield-svg {
+  position: relative;
+  z-index: 2;
+  width: 80px;
+  height: 96px;
+  filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.5));
+}
+
+/* Typography */
+.warning-title {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--accent-red);
+  margin-bottom: 12px;
+  text-shadow: 0 0 24px rgba(239, 68, 68, 0.4);
+}
+
+.warning-description {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #cbd5e1;
+  max-width: 680px;
+  margin-bottom: 32px;
+}
+
+/* Threat evidence card */
+.threat-card {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-red);
+  border-radius: 14px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  text-align: left;
+}
+
+.threat-row {
+  display: grid;
+  grid-template-columns: 140px 16px 1fr;
+  align-items: center;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .threat-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .threat-colon {
+    display: none;
+  }
+}
+
+.threat-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.threat-colon {
+  color: #64748b;
+  font-weight: bold;
+}
+
+.threat-value {
+  color: #ffffff;
+  word-break: break-all;
+}
+
+.risk-badge {
+  display: inline-block;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid var(--accent-red);
+  color: #f87171;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 3px 12px;
+  border-radius: 9999px;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: #f1f5f9;
+}
+
+.text-gray-300 {
+  color: #cbd5e1;
+}
+
+.text-cyan {
+  color: var(--accent-cyan);
+}
+
+/* Action buttons */
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-primary {
+  background: #00d4ff;
+  color: #04081e;
+  box-shadow: 0 4px 16px rgba(0, 212, 255, 0.3);
+}
+
+.btn-primary:hover {
+  background: #38bdf8;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.45);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Forensic details panel */
+.details-panel {
+  width: 100%;
+  background: #0b0f30;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: left;
+  margin-bottom: 24px;
+  animation: fadeIn 0.3s ease;
+}
+
+.details-panel h3 {
+  font-size: 15px;
+  color: #38bdf8;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.detail-item {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 10px 14px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail-key {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.detail-val {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.danger-bypass-box {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.bypass-warning {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #fca5a5;
+  margin-bottom: 12px;
+}
+
+.bypass-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-danger-sm {
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-outline-sm {
+  background: transparent;
+  color: #cbd5e1;
+  border: 1px solid #475569;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-outline-sm:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 100;
+}
+
+.modal-card {
+  background: #0d1238;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  max-width: 500px;
+  width: 100%;
+  padding: 24px;
+  text-align: left;
+}
+
+.modal-card h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.modal-card p {
+  font-size: 14px;
+  color: #94a3b8;
+  margin-bottom: 16px;
+}
+
+.modal-form textarea {
+  width: 100%;
+  height: 100px;
+  background: #0a0e27;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 10px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 13px;
+  resize: none;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.modal-form textarea:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.warning-footer {
+  margin-top: 24px;
+  font-size: 12px;
+  color: #64748b;
+}

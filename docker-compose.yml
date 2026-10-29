@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: phishguard-db
+    environment:
+      POSTGRES_USER: phishguard
+      POSTGRES_PASSWORD: phishguard_secure_password_2026
+      POSTGRES_DB: phishguard
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U phishguard -d phishguard"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../Dockerfile.backend
+    container_name: phishguard-backend
+    environment:
+      DATABASE_URL: postgresql+asyncpg://phishguard:phishguard_secure_password_2026@db:5432/phishguard
+      SECRET_KEY: super_secret_phishguard_key_replace_in_prod_!2026
+      ENVIRONMENT: production
+      CORS_ORIGINS: '["http://localhost", "http://localhost:5173", "http://localhost:80"]'
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../Dockerfile.frontend
+    container_name: phishguard-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
