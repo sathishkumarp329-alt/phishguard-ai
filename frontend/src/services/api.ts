@@ -13,7 +13,7 @@ import {
 } from '@/types';
 
 export const apiClient = axios.create({
-  baseURL: '/api/v1',
+  baseURL: (import.meta as any).env?.VITE_API_BASE_URL || '/api/v1',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -21,11 +21,40 @@ export const apiClient = axios.create({
   timeout: 30000,
 });
 
+const TOKEN_KEY = 'phishguard_token';
+
+const getStoredToken = (): string | null => {
+  try {
+    return localStorage.getItem(TOKEN_KEY);
+  } catch {
+    return null;
+  }
+};
+
+const setStoredToken = (token: string | null): void => {
+  try {
+    if (token) localStorage.setItem(TOKEN_KEY, token);
+    else localStorage.removeItem(TOKEN_KEY);
+  } catch {
+    // storage unavailable; cookie auth may still work
+  }
+};
+
+// Send the token as a Bearer header (works even when the browser blocks cross-site cookies)
+apiClient.interceptors.request.use((config) => {
+  const token = getStoredToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 // Response interceptor for handling 401 Unauthorized
 apiClient.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
     if (error.response?.status === 401) {
+      setStoredToken(null);
       const currentPath = window.location.pathname;
       const publicPaths = ['/login', '/signup', '/forgot-password', '/'];
       if (!publicPaths.includes(currentPath)) {
@@ -41,15 +70,18 @@ apiClient.interceptors.response.use(
 export const authApi = {
   login: async (credentials: LoginCredentials): Promise<{ user: User; message?: string }> => {
     const res = await apiClient.post('/auth/login', credentials);
+    setStoredToken(res.data?.access_token ?? null);
     return res.data;
   },
 
   signup: async (data: SignupData): Promise<{ user: User; message?: string }> => {
     const res = await apiClient.post('/auth/signup', data);
+    setStoredToken(res.data?.access_token ?? null);
     return res.data;
   },
 
   logout: async (): Promise<{ message: string }> => {
+    setStoredToken(null);
     const res = await apiClient.post('/auth/logout');
     return res.data;
   },
