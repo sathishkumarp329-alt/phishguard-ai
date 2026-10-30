@@ -61,9 +61,7 @@ export const UrlScanner: React.FC<UrlScannerProps> = ({
         const preview = await scanApi.realtimeCheck(formattedUrl);
         const previewScan: Scan = {
           id: 'preview',
-          user_id: '',
           url: formattedUrl,
-          normalized_url: formattedUrl,
           hostname: preview.hostname || trimmed,
           status: 'completed',
           verdict: preview.verdict,
