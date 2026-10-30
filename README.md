@@ -120,8 +120,6 @@ Follow these step-by-step commands to push this codebase to your own GitHub acco
 ### Step 2: Initialize Git and Push from Local Machine
 In your terminal at the project root (`phishguard-ai`):
 ```bash
-# Navigate to project root
-cd C:\Users\sathi\.gemini\antigravity\scratch\phishguard-ai
 
 # Initialize git repository
 git init
