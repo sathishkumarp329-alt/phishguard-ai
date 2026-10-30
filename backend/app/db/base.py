@@ -9,8 +9,8 @@ class Base(DeclarativeBase):
 
 
 # Import all models for Alembic metadata tracking
-from app.models.user import User  # noqa: F401, E402
-from app.models.scan import Scan, ScanFinding  # noqa: F401, E402
-from app.models.file_scan import FileScan  # noqa: F401, E402
-from app.models.password_reset import PasswordReset  # noqa: F401, E402
-from app.models.feedback import Feedback, AuditLog  # noqa: F401, E402
+#from app.models.user import User  # noqa: F401, E402
+#from app.models.scan import Scan, ScanFinding  # noqa: F401, E402
+#from app.models.file_scan import FileScan  # noqa: F401, E402
+#from app.models.password_reset import PasswordReset  # noqa: F401, E402
+#from app.models.feedback import Feedback, AuditLog  # noqa: F401, E402'''
