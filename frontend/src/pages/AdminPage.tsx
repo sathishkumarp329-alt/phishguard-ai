@@ -100,7 +100,7 @@ export const AdminPage: React.FC = () => {
 
         {loading ? (
           <div className="py-20 flex justify-center">
-            <LoadingSpinner size="lg" message="Gathering system telemetry..." />
+            <LoadingSpinner size="lg" text="Gathering system telemetry..." />
           </div>
         ) : health && stats ? (
           <>
