@@ -54,6 +54,7 @@ async def signup(
     return AuthResponse(
         user=UserResponse.model_validate(user),
         message="Account created successfully.",
+        access_token=token,
     )
 
 
@@ -84,6 +85,7 @@ async def login(
     return AuthResponse(
         user=UserResponse.model_validate(user),
         message="Authentication successful.",
+        access_token=token,
     )
 
 
